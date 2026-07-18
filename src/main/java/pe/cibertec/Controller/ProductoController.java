@@ -1,9 +1,7 @@
 package pe.cibertec.Controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pe.cibertec.entity.Producto;
 import pe.cibertec.servicie.ProductoService;
 
@@ -19,8 +17,14 @@ public class ProductoController {
         this.productoService = productoService;
     }
 
+    @PostMapping("/lote")
     public ResponseEntity<String> registrarLote(@RequestBody List<Producto> productos){
-        productoService.registrarLote((productos));
+        productoService.registrarLote(productos);
         return ResponseEntity.ok("Productos Registrados satisfactoriamente");
+    }
+
+    @GetMapping
+    public List<Producto> listar(){
+        return productoService.listarTodos();
     }
 }
