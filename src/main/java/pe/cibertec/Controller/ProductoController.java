@@ -40,6 +40,6 @@ public class ProductoController {
 
     @GetMapping("/buscar/{nombre}")
     public List<Producto> buscarPorNombre(@PathVariable String nombre){
-        return productoRepository.findByNombre(nombre);
+        return productoService.buscar(nombre);
     }
 }

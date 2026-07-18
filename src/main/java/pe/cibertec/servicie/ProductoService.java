@@ -39,4 +39,8 @@ public class ProductoService {
                 .setHint("org.hibernate.fetchSize", 5) //Trae todos, pero lee de 5 en 5
                 .getResultList();
     }
+
+    public  List<Producto> buscar(String nombre){
+        return productoRepository.findByNombre(nombre);
+    }
 }
