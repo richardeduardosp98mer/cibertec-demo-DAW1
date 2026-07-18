@@ -12,5 +12,7 @@ public class Producto {
     private long id;
     private String nombre;
     private Double precio;
+    @Version
+    private Integer version; //Control de concurrencia optimista
 
 }
