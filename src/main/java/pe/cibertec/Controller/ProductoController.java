@@ -42,4 +42,16 @@ public class ProductoController {
     public List<Producto> buscarPorNombre(@PathVariable String nombre){
         return productoService.buscar(nombre);
     }
+
+    @PutMapping("/{id}")
+    public  ResponseEntity<Producto> actualizar(@PathVariable Long id, @RequestBody Producto producto){
+        return productoRepository.findById(id)
+                .map( prod -> {
+                    prod.setNombre(producto.getNombre());
+                    prod.setPrecio(producto.getPrecio());
+                    Producto actualizado = productoRepository.save(prod);
+                    return ResponseEntity.ok(actualizado);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
