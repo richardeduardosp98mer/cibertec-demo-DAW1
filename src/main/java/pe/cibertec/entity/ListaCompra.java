@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -13,5 +14,9 @@ public class ListaCompra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String titulo;
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaCreacion = LocalDateTime.now();
+    @ManyToOne
+    private  Usuario usuario;
+    @OneToMany(mappedBy = "lista", cascade = CascadeType.ALL)
+    private List<ItemLista> items;
 }
