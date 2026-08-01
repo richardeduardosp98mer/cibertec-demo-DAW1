@@ -57,4 +57,13 @@ public class ListaCompraController {
     public List<ListaCompra> historial(@PathVariable Long idUsuario){
         return listaRepository.findByUsuarioId(idUsuario);
     }
+
+    @GetMapping("{idLista}")
+    public ResponseEntity<List<ItemLista>> detalle(@PathVariable Long idLista){
+        List<ItemLista> items = itemRepository.detalleLista(idLista);
+        if (items.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(items);
+    }
 }
