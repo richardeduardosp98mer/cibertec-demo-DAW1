@@ -10,4 +10,7 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<ItemLista, Long> {
     @Query("SELECT i FROM ItemLista  i WHERE i.lista.id = :idLista")
     List<ItemLista> detalleLista(@Param("idLista") Long idLista);
+
+    @Query("select i from ItemLista i where i.estado = :estado and i.lista.id = :idLista ")
+    List<ItemLista> estadoLista(@Param("estado") String estado,@Param("idLista") Long idLista );
 }

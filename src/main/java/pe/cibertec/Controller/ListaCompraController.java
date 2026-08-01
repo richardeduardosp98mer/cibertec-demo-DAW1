@@ -66,4 +66,13 @@ public class ListaCompraController {
         }
         return ResponseEntity.ok(items);
     }
+
+    @GetMapping("{idLista}/items")
+    public ResponseEntity<List<ItemLista>> estadoLista(@RequestParam String estado, @PathVariable Long idLista ){
+        List<ItemLista> items = itemRepository.estadoLista(estado, idLista);
+        if (items.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(items);
+    }
 }
