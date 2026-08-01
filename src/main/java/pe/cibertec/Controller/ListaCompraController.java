@@ -1,5 +1,6 @@
 package pe.cibertec.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.cibertec.entity.ItemLista;
@@ -54,6 +55,6 @@ public class ListaCompraController {
 
     @GetMapping("usuario/{idUsuario}")
     public List<ListaCompra> historial(@PathVariable Long idUsuario){
-        return ListaRepository.findByUsuarioId(idUsuario);
+        return listaRepository.findByUsuarioId(idUsuario);
     }
 }
