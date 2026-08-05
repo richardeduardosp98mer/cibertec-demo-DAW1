@@ -10,7 +10,7 @@ import java.util.List;
 public interface ListaRepository extends JpaRepository<ListaCompra, Long> {
     List<ListaCompra> findByUsuarioId(long usuarioId);
 
-    Page<ListaCompra> findByUsuarioIdPaginado(Long idUsuario, Pageable pageable);
+    Page<ListaCompra> findByUsuarioId(Long usuarioId, Pageable pageable);
 
 
 }

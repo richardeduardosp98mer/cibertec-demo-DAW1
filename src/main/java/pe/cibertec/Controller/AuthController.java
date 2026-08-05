@@ -8,19 +8,21 @@ import org.springframework.web.bind.annotation.RestController;
 import pe.cibertec.dto.LoginRequest;
 import pe.cibertec.entity.Usuario;
 import pe.cibertec.repository.UsuarioRepository;
+import pe.cibertec.servicie.UsuarioService;
 
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
-    private final UsuarioRepository usuarioRepository;
 
-    public AuthController(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+    private final UsuarioService usuarioService;
+
+    public AuthController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
-        Usuario usuario = usuarioRepository.findByCorreo(loginRequest.getCorreo()).orElse(null);
+        Usuario usuario = usuarioService.login(loginRequest.getCorreo(), loginRequest.getClave());
         if (usuario == null || !usuario.getClave().equals(loginRequest.getClave())){
             return ResponseEntity.status(401).body("Credenciales invalidas");
         }

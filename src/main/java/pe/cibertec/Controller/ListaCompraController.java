@@ -83,12 +83,12 @@ public class ListaCompraController {
     @GetMapping("/usuario/{idUsuario}/paginado")
     public Page<ListaCompra> historialPaginado(@PathVariable Long idUsuario, @RequestParam int page, @RequestParam int size){
         Pageable pageable = PageRequest.of(page, size);
-        return listaRepository.findByUsuarioIdPaginado(idUsuario, pageable);
+        return listaRepository.findByUsuarioId(idUsuario, pageable);
     }
 
     @GetMapping("/usuario/{idUsuario}/paginado/ordenado")
     public ResponseEntity<List<ItemLista>> historialPaginadoOrdenado(
-            @PathVariable Long idUsuario,
+            @PathVariable Long usuarioId,
             @RequestParam int page,
             @RequestParam int size,
             @RequestParam(defaultValue = "fechaCreacion") String sortBy,
@@ -98,7 +98,7 @@ public class ListaCompraController {
                 Sort.by(sortBy).ascending() :
                 Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(page, size, sort);
-        return listaRepository.findByUsuarioId(idUsuario, pageable);
+        return listaRepository.findByUsuarioId(usuarioId, pageable);
     }
 
 }
