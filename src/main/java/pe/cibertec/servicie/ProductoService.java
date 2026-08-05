@@ -7,18 +7,21 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import pe.cibertec.entity.Producto;
 import pe.cibertec.repository.ProductoRepository;
+import pe.cibertec.util.FormatoUtil;
 
 import java.util.List;
 
 @Service
 public class ProductoService {
     private final ProductoRepository productoRepository;
+    private final FormatoUtil formatoUtil;
 
     @PersistenceContext
     private EntityManager em;
 
-    public ProductoService(ProductoRepository productoRepository) {
+    public ProductoService(ProductoRepository productoRepository, FormatoUtil formatoUtil) {
         this.productoRepository = productoRepository;
+        this.formatoUtil = formatoUtil;
     }
 
     // Insercion por lotes (batch insert)
@@ -26,6 +29,7 @@ public class ProductoService {
     public void registrarLote(List<Producto> productos){
         int i =0;
         for (Producto p: productos){
+            p.setNombre(formatoUtil.capitalizar(p.getNombre()));
             em.persist(p);
             i++;
             if (i % 10 ==0){  //arma el paginado
